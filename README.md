@@ -33,5 +33,11 @@ Make sure you have one SSH key in your workstation. (No need to specify it anywh
 
 You can optionally use [custom domains](https://localhost.run/docs/custom-domains) with a paid plan to get a fixed URL and additional features.
 
+## Note :
+
+A couple of things that users need to be aware of with this service :
+
+1. When passing http traffic through localhost.run, 100% of the traffic is unencrypted and can be viewd by localhst.run service administrators.
+2. For CMSs like WordPress and Magento 2 that wire the hostname into their database, more work has to be done, as described in the [sharing page](https://ddev.readthedocs.io/en/stable/users/topics/sharing/#wordpress-change-the-url-with-wp-search-replace).
 
 **Contributed and maintained by [@bhanu951](https://github.com/bhanu951)**

@@ -21,7 +21,7 @@ When you run above command a publically accessible URL will be displayed in the 
 To remove this addon run
 
 ```
-$ ddev get --remove localhostrun
+$ ddev get --remove ddev-localhostrun
 ```
 ## About localhost.run Service
 

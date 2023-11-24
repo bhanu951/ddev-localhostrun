@@ -24,7 +24,8 @@ teardown() {
   echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   ddev get ${DIR}
   ddev restart
-  ddev localhostrun | grep -e '*.lhr.life'
+  # ddev localhostrun | grep -e '*.lhr.life'  
+  ddev localhostrun -- --output json | grep -e '*.lhr.life'
   # find out how can the public url read from terminal output.
 }
 

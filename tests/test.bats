@@ -1,9 +1,9 @@
 setup() {
   set -eu -o pipefail
   export DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )/.."
-  export TESTDIR=~/tmp/test-addon-template
+  export TESTDIR=~/tmp/test-ddev-localhostrun
   mkdir -p $TESTDIR
-  export PROJNAME=test-addon-template
+  export PROJNAME=test-ddev-localhostrun
   export DDEV_NON_INTERACTIVE=true
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1 || true
   cd "${TESTDIR}"
@@ -11,16 +11,10 @@ setup() {
   ddev start -y >/dev/null
 }
 
-health_checks() {
-  # Do something useful here that verifies the add-on
-  # ddev exec "curl -s elasticsearch:9200" | grep "${PROJNAME}-elasticsearch"
-  ddev exec "curl -s https://localhost:443/"
-}
-
 teardown() {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  ddev delete -Oy ${PROJNAME} >/dev/null 2>&1
+  ddev delete -Oy ${PROJNAME} >/dev/null
   [ "${TESTDIR}" != "" ] && rm -rf ${TESTDIR}
 }
 
@@ -30,15 +24,17 @@ teardown() {
   echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   ddev get ${DIR}
   ddev restart
-  health_checks
+  # ddev localhostrun | grep -e '*.lhr.life'  
+  ddev localhostrun -- --output json | grep -e '*.lhr.life'
+  # find out how can the public url read from terminal output.
 }
 
 @test "install from release" {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get ddev/ddev-addon-template with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get ddev/ddev-addon-template
+  echo "# ddev get bhanu951/ddev-localhostrun with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev get bhanu951/ddev-localhostrun
   ddev restart >/dev/null
-  health_checks
+  ddev localhostrun | grep -e '*.lhr.life'
+  # find out how can the public url read from terminal output.
 }
-

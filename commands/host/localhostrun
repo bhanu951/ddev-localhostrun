@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: Tunnel to localhost.run service.
+## Usage: localhostrun
+## Example: ddev localhostrun
+
+ssh -R 80:localhost:${DDEV_HOST_WEBSERVER_PORT} localhost.run $@
